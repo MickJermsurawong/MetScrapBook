@@ -583,10 +583,16 @@ document.onload = (function(d3, saveAs, Blob, undefined){
       success: function(data){
 
         var numReturned = data.collection.items.length;
-        var ranIndex = Math.floor((Math.random() * numReturned));
+        // var ranIndex = Math.floor((Math.random() * numReturned));
 
-        var resultURL = data.collection.items[ranIndex].href;
-
+        try{
+          var resultURL = data.collection.items[0].href;
+        }
+        catch (err){
+          $("#searchBox").val("Not found...");
+          $("#centerBox").css('background-color','rgba(15,15,15, 0.2)');
+          return;
+        }
 
         console.log(resultURL);
         $.ajax({
